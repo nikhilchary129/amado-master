@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Form</title>
+    <style>
+        body {
+            background-color: #f7f7f7; /* Gray background color */
+            color: #6d6d6d; /* Text color */
+            font-family: Arial, sans-serif; /* Common font for better compatibility */
+        }
+
+        h2 {
+            color: #242424; /* Heading color */
+        }
+
+        form {
+            background-color: #ffffff; /* White color for the form background */
+            padding: 20px;
+            border: 1px solid #ebebeb; /* Border color */
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        label {
+            color: #131212; /* Dark color for labels */
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ebebeb; /* Border color */
+            border-radius: 4px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            background-color: #fbb710; /* Hover color for the submit button */
+            color: #ffffff; /* White color for text on the submit button */
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #fbb710; /* Default background color for hover effect */
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Product Information</h2>
+
+    <form action="/productinfo" method="post" name="productForm">
+
+        <!-- Categories -->
+        <label for="categories">Categories:</label>
+        <select name="categories" id="categories">
+            <option value="furniture">Furniture</option>
+            <option value="glass-work">Glass Work</option>
+            <option value="plastic-products">Plastic Products</option>
+            <option value="home-deco">Home Deco</option>
+            <option value="dressings">Dressings</option>
+            <option value="metals">Metals</option>
+            <option value="organic-waste">Organic Waste</option>
+        </select>
+
+        <br><br>
+
+        <!-- Image URLs -->
+        <label for="img1">Image 1 URL:</label>
+        <input type="text" name="img1" placeholder="Enter Image 1 URL" required>
+
+        <label for="img2">Image 2 URL:</label>
+        <input type="text" name="img2" placeholder="Enter Image 2 URL" required>
+
+        <label for="img3">Image 3 URL:</label>
+        <input type="text" name="img3" placeholder="Enter Image 3 URL" required>
+
+        <br><br>
+
+        <!-- Description -->
+        <label for="description">Description:</label>
+        <textarea name="description" placeholder="Enter product description" rows="4" required></textarea>
+
+        <br><br>
+
+        <!-- Amount -->
+        <label for="amount">Amount:</label>
+        <input type="text" name="amount" placeholder="Enter amount" required>
+
+        <br><br>
+
+        <!-- Location -->
+        <label for="location">Location:</label>
+        <input type="text" name="location" placeholder="Enter location" required>
+
+        <br><br>
+
+        <!-- Submit Button -->
+        <input type="submit" value="Submit">
+
+    </form>
+
+</body>
+</html>

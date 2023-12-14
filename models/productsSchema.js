@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 // Define the user schema
 const productSchema = new Schema({
-  
+    category:{type:String},
     img1:{type:String},       
     img2:{type:String},       
     img3:{type:String},
