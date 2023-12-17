@@ -1,12 +1,12 @@
 const http = require("http")
 const express = require("express")
-const data = require("./models/mongo")
+
 const mongodb = require('mongodb');
 const bodyPaser = require("body-parser")
 const mongoose = require("mongoose");
 
 const jwt=require("jsonwebtoken")
-const db = "mongodb+srv://nikhilchary129:nikhilchary1297@data.5jnkklt.mongodb.net"
+const db = "mongodb+srv://nikhilchary129:1234567890@cluster0.jfc4ce3.mongodb.net/"
 
 const path = require("path");
 const { render } = require("ejs");
