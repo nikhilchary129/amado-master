@@ -144,16 +144,37 @@ route.get("/cart/:item", authenticateUser, async (req, res) => {
   res.redirect("/cart");
 })
 route.get("/cart", authenticateUser, async (req, res) => {
-  let { userid, wishlistid } = req.cookies
-  const ide=jwt.verify(userid, "keybro");
- // const wishlist =await wish.findOne({user:ide._id});
-  const userkaid = jwt.verify(userid, "keybro");
-  //console.log(wishlist.items )
- // wishlist.save();
- //const carts = wishlist.items;
- //res.render("cart", { carts });
+  try {
+    let { userid } = req.cookies;
+    const ide = jwt.verify(userid, "keybro");
+    const userkaid = jwt.verify(userid, "keybro");
 
-})
+    const userinfo = await User.findById(userkaid);
+    const wishListItems = userinfo.wish;
+
+    const info = await Promise.all(wishListItems.map(async (el) => {
+      try {
+        const productinfo = await products.findById(el.id);
+        if (productinfo) {
+          return productinfo;
+        } else {
+          console.log(`Product with ID ${el.id} not found`);
+          return null;
+        }
+      } catch (error) {
+        console.error(`Error finding product with ID ${el.id}:`, error);
+        return null;
+      }
+    }));
+
+    console.log(info);
+    res.render("cart", { carts: info.filter(product => product !== null) });
+  } catch (error) {
+    console.error("Error fetching user info:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 route.post("/gettouchrequest/:productid", authenticateUser, async (req, res) => {
   const ide = req.params.productid;
   let { userid, wishlistid } = req.cookies
