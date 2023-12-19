@@ -17,34 +17,37 @@ route.get("/shop",async (req, res) => {
  // console.log(item[0])
   res.render("shop",{item});
 })
-route.get("/shop/glass_work", (req, res) => {
+route.get("/dd",(req,res)=>{
+  res.render("product-details")
+})
+route.get("/shop/cat/glass_work", (req, res) => {
 
   const item = products.find({ category: "glass_work"})
 
   res.render("shop", { item })
 })
-route.get("/shop/plastic", (req, res) => {
+route.get("/shop/cat/plastic", (req, res) => {
 
   const item = products.find({ category: "plastic" })
 
   res.render("shop", { item })
 })
-route.get("/shop/Dressings", (req, res) => {
+route.get("/shop/cat/Dressings", (req, res) => {
   const item = products.find({ category: "Dressings" })
 
   res.render("shop", { item })
 })
-route.get("/shop/Deco", (req, res) => {
+route.get("/shop/cat/Deco", (req, res) => {
   const item = products.find({ category: "Deco" })
 
   res.render("shop", { item })
 })
-route.get("/shop/metals", (req, res) => {
+route.get("/shop/cat/metals", (req, res) => {
   const item = products.find({ category: "metals"})
 
   res.render("shop", { item })
 })
-route.get("/shop/Organic", (req, res) => {
+route.get("/shop/cat/Organic", (req, res) => {
   const item = products.find({ category: "Organic" })
 
   res.render("shop", { item })
@@ -96,7 +99,7 @@ route.post('/productinfo', async (req, res) => {
       amount,
       location,
     });
-    console.log(newProduct);
+   // console.log(newProduct);
 
     // Save the product to the database
     await newProduct.save();
@@ -104,7 +107,7 @@ route.post('/productinfo', async (req, res) => {
     const userId = jwt.verify(userid, "keybro")
     
     const userfind = await User.findOne({ _id: userId._id });
-    console.log(userfind)
+   // console.log(userfind)
     if (!userfind.products) {
       userfind.products = [];
     }
@@ -128,7 +131,9 @@ route.post("/cart/:item", authenticateUser, async (req, res) => {
   const item = req.params.item
   const itemobject = await products.findById(item);
   let { userid, wishlistid } = req.cookies
-  const wishlist = wish.findById(jwt.verify(wishlistid, "keybro"));
+  const ide=jwt.verify(userid, "keybro");
+  const wishlist =await wish.findById( ide._id);
+  const userkaid = jwt.verify(userid, "keybro");
   // const userinfo= User.findById( jwt.verify(userid,"keybro"))
   wishlist[0].items.push({
     id: itemobject[0]._id
@@ -138,10 +143,12 @@ route.post("/cart/:item", authenticateUser, async (req, res) => {
 })
 route.get("/cart", authenticateUser, async (req, res) => {
   let { userid, wishlistid } = req.cookies
-  const wishlist = wish.findById(jwt.verify(wishlistid, "keybro"));
+  const ide=jwt.verify(userid, "keybro");
+  const wishlist =await wish.findOne({user:ide._id});
   const userkaid = jwt.verify(userid, "keybro");
-  const carts = wishlist[0].items;
-  res.render("cart", { carts });
+  console.log(wishlist )
+ const carts = wishlist.items;
+ res.render("cart", { carts });
 
 })
 route.post("/gettouchrequest/:productid", authenticateUser, async (req, res) => {
@@ -151,11 +158,11 @@ route.post("/gettouchrequest/:productid", authenticateUser, async (req, res) => 
   res.render("/contactinfo", { contactinfo });
 
 })
-route.post("/shop/:productid", async (req, res) => {
+route.get("/shop/:productid", async (req, res) => {
   const ide = req.params.productid;
-  console.log(ide)
+ // console.log(ide)
   const items = products.findOne({ _id: ide });
-  res.render("product-deatails.ejs", { items });
+  res.render("product-details.ejs", { items });
 
 })
 
