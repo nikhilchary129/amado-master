@@ -8,6 +8,10 @@ const userSchema = new Schema({
     products: [{
         id: { type: mongoose.Schema.Types.ObjectId, ref: 'products' },
         //quantity: { type: Number, default: 1 },
+    }],
+    wish: [{
+        id: { type: mongoose.Schema.Types.ObjectId, ref: 'products' },
+        //quantity: { type: Number, default: 1 },
     }]
 });
 

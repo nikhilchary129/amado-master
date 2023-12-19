@@ -19,24 +19,26 @@ const register = async (req, res) => {
     const newUser = new User({
       username,
       password,
+      emptyproduct,
       emptyproduct
 
     });
    // console.log(newUser)
-    const tempwishlist = new wishlist({
-      user: newUser._id,
-    })
-    await tempwishlist.save();
+    // const tempwishlist = new wishlist({
+    //   user: newUser._id,
+    //   items:[]
+    // })
+    // await tempwishlist.save();
 
     await newUser.save();
     const userid = jwt.sign({ _id: newUser._id }, "keybro")
-    const wishlistid = jwt.sign({ _id: tempwishlist._id }, "keybro");
+    // const wishlistid = jwt.sign({ _id: tempwishlist._id }, "keybro");
     res.cookie("userid", userid, {
       expires: new Date(Date.now() + 9000000),
     })
-    res.cookie("wishlistid", wishlistid, {
-      expires: new Date(Date.now() + 9000000),
-    })
+    // res.cookie("wishlistid", wishlistid, {
+    //   expires: new Date(Date.now() + 9000000),
+    // })
     // console.log(document.cookie);
     // res.send('User registered successfully');
     res.redirect("/post");
@@ -63,14 +65,14 @@ const login = async (req, res) => {
     if (password === user.password) {
       // Authentication successful
       const userid = jwt.sign({ _id: user._id }, "keybro")
-      const wishlistel = await wishlist.findOne({ user: user._id })
+     // const wishlistel = await wishlist.findOne({ user: user._id })
       // comst wishlistid=jwt
       res.cookie("userid", userid, {
         expires: new Date(Date.now() + 9000000),
       })
-      res.cookie("wishlistid", wishlistel._id, {
-        expires: new Date(Date.now() + 9000000),
-      })
+      // res.cookie("wishlistid", wishlistel._id, {
+      //   expires: new Date(Date.now() + 9000000),
+      // })
       //  console.log( res.cookie);
       // res.send('Login successful');
       res.redirect("/post")

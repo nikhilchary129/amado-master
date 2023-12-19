@@ -19,8 +19,9 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())
-mongoose.connect((db))
-
+mongoose.connect((db),{
+    useNewUrlParser: true, useUnifiedTopology: true
+})
 app.use(router)
 
 app.listen(3000)

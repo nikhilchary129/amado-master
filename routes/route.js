@@ -3,7 +3,8 @@ const User = require("../models/userschema");
 const auth = require("../controllers/auth")
 const products = require("../models/productsSchema")
 const wish = require("../models/wishlist")
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const { ObjectId } = require("mongodb");
 //const product=require("../controllers/products");
 
 const route = express()
@@ -61,7 +62,7 @@ route.post('/auth/register', auth.register);
 route.post('/auth/login', auth.login);
 
 const authenticateUser = (req, res, next) => {
-  console.log(req.cookies)
+ // console.log(req.cookies)
   if (req.cookies.userid) {
     // User is authenticated, continue to the next middleware or route handler
     next();
@@ -126,29 +127,31 @@ route.post('/productinfo', async (req, res) => {
 
 })
 
-route.post("/cart/:item", authenticateUser, async (req, res) => {
+route.get("/cart/:item", authenticateUser, async (req, res) => {
   //  const catgory=req.params.catgory
   const item = req.params.item
   const itemobject = await products.findById(item);
-  let { userid, wishlistid } = req.cookies
+  let { userid} = req.cookies
   const ide=jwt.verify(userid, "keybro");
-  const wishlist =await wish.findById( ide._id);
-  const userkaid = jwt.verify(userid, "keybro");
-  // const userinfo= User.findById( jwt.verify(userid,"keybro"))
-  wishlist[0].items.push({
-    id: itemobject[0]._id
-  });
-  wishlist[0].save();
+  const userinfo= await User.findById(ide);
+  if (!userinfo.wish) {
+    userinfo.wish = [];
+  }
+  userinfo.wish.push({ id: item });
+  await userinfo.save();
+  //console.log(userinfo);
+ 
   res.redirect("/cart");
 })
 route.get("/cart", authenticateUser, async (req, res) => {
   let { userid, wishlistid } = req.cookies
   const ide=jwt.verify(userid, "keybro");
-  const wishlist =await wish.findOne({user:ide._id});
+ // const wishlist =await wish.findOne({user:ide._id});
   const userkaid = jwt.verify(userid, "keybro");
-  console.log(wishlist )
- const carts = wishlist.items;
- res.render("cart", { carts });
+  //console.log(wishlist.items )
+ // wishlist.save();
+ //const carts = wishlist.items;
+ //res.render("cart", { carts });
 
 })
 route.post("/gettouchrequest/:productid", authenticateUser, async (req, res) => {
@@ -158,12 +161,17 @@ route.post("/gettouchrequest/:productid", authenticateUser, async (req, res) => 
   res.render("/contactinfo", { contactinfo });
 
 })
-route.get("/shop/:productid", async (req, res) => {
-  const ide = req.params.productid;
- // console.log(ide)
-  const items = products.findOne({ _id: ide });
-  res.render("product-details.ejs", { items });
-
+route.get("/shop/:productid",async  (req, res) => {
+  const productid = req.params.productid
+ // console.log(productid)
+  products.findById(productid)
+    .then((product) => {
+     // console.log(product)
+      res.render('product-details', { product })
+    })
+    .catch((err) => {
+      console.log(err, 'product view')
+    })
 })
 
 module.exports = route
