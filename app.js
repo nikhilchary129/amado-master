@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // MongoDB connection
-const db = "mongodb+srv://nikhilchary129:1234567890@cluster0.jfc4ce3.mongodb.net/";
+const db = "mongodb+srv://nikhilchary129:1234567890@cluster0.c0ujdyf.mongodb.net/";
 mongoose.connect(db, {
   useNewUrlParser: true,
   useUnifiedTopology: true

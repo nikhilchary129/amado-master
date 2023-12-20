@@ -124,7 +124,7 @@ route.post('/productinfo', async (req, res) => {
     await userfind.save();
 
     //res.send('Product submitted successfully');
-    url = "/shop/" ;
+    url = "/shop" ;
     res.redirect(url)
   } catch (error) {
     console.error(error);
