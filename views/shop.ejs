@@ -79,10 +79,10 @@
         <nav class="amado-nav">
           <ul>
             <li><a href="/">Home</a></li>
-            <li class="active"><a href="shop">Shop</a></li>
-            <li><a href="product-details.html">Product</a></li>
-            <li><a href="cart.html">Cart</a></li>
-            <li><a href="checkout.html">Checkout</a></li>
+            <li class="active"><a href="/shop">Shop</a></li>
+            <li><a href="/product">Product</a></li>
+            <li><a href="/cart">Cart</a></li>
+        
           </ul>
         </nav>
         <!-- Button Group -->
@@ -161,7 +161,7 @@
                   tabindex="0"
                 ></span>
               </div>
-              <div class="range-price">$10 - $1000</div>
+           
             </div>
           </div>
         </div>
@@ -195,7 +195,7 @@
                    <div class="col-12 col-sm-6 col-md-12 col-xl-6">
                   <div class="single-product-wrapper">
                   <!-- Product Image -->
-                  <% console.log(element.img1) %>
+               
                   <div class="product-img">
                       <img src=<%=element.img1 %> alt="" />
                   
@@ -231,6 +231,10 @@
                           <i class="fa fa-star" aria-hidden="true"></i>
                           <i class="fa fa-star" aria-hidden="true"></i>
                       </div>
+                      <form class="cart clearfix" action="/gettouchrequest/<%= element.id %>" method="post">
+                       
+                        <button type="submit" name="addtocart" value="5" class="btn amado-btn">get contact info</button>
+                    </form>
                       <div class="cart">
                           <a
                           href="/cart/<%= element.id %>" 

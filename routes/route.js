@@ -80,6 +80,7 @@ route.get('/post', authenticateUser, (req, res) => {
 
 route.post('/productinfo', async (req, res) => {
   const {
+    name,
     categories,
     img1,
     img2,
@@ -87,11 +88,14 @@ route.post('/productinfo', async (req, res) => {
     description,
     amount,
     location,
+    mail,
+    number
   } = req.body;
 
   try {
     // Create a new product
     const newProduct = new products({
+      name,
       categories,
       img1,
       img2,
@@ -99,6 +103,9 @@ route.post('/productinfo', async (req, res) => {
       description,
       amount,
       location,
+      contact:{
+        mail,number
+      }
     });
    // console.log(newProduct);
 
@@ -117,7 +124,7 @@ route.post('/productinfo', async (req, res) => {
     await userfind.save();
 
     //res.send('Product submitted successfully');
-    url = "/shop/" + newProduct._id;
+    url = "/shop/" ;
     res.redirect(url)
   } catch (error) {
     console.error(error);
@@ -176,10 +183,12 @@ route.get("/cart", authenticateUser, async (req, res) => {
 });
 
 route.post("/gettouchrequest/:productid", authenticateUser, async (req, res) => {
-  const ide = req.params.productid;
-  let { userid, wishlistid } = req.cookies
-  const contactinfo = await products.findOne({ _id: ide });
-  res.render("/contactinfo", { contactinfo });
+  
+  const productid=req.params.productid;
+  const productinfo=await  products.findById(productid);
+  const contactinfo=productinfo.contact
+  res.render("so",{contactinfo});
+  
 
 })
 route.get("/shop/:productid",async  (req, res) => {

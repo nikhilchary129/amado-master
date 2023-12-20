@@ -1,27 +1,30 @@
-const http = require("http")
-const express = require("express")
-
-const mongodb = require('mongodb');
-const bodyPaser = require("body-parser")
+const http = require("http");
+const express = require("express");
 const mongoose = require("mongoose");
-
-const jwt=require("jsonwebtoken")
-const db = "mongodb+srv://nikhilchary129:1234567890@cluster0.jfc4ce3.mongodb.net/"
-
-const path = require("path");
-const { render } = require("ejs");
-const router = require("./routes/route.js");
+const jwt = require("jsonwebtoken");
+const bodyPaser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const app = express()
-app.set('view engine', 'ejs')
+const path = require("path");
+const router = require("./routes/route.js");
+
+const app = express();
+app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, "public")));
-
-
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser())
-mongoose.connect((db),{
-    useNewUrlParser: true, useUnifiedTopology: true
-})
-app.use(router)
+app.use(cookieParser());
 
-app.listen(3000)
+// MongoDB connection
+const db = "mongodb+srv://nikhilchary129:1234567890@cluster0.jfc4ce3.mongodb.net/";
+mongoose.connect(db, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+// Routes
+app.use(router);
+
+// Server listen
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
