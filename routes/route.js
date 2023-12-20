@@ -187,6 +187,7 @@ route.post("/gettouchrequest/:productid", authenticateUser, async (req, res) => 
   const productid=req.params.productid;
   const productinfo=await  products.findById(productid);
   const contactinfo=productinfo.contact
+  
   res.render("so",{contactinfo});
   
 
