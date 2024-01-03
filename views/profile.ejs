@@ -1512,9 +1512,17 @@
 
       <div class="shop_sidebar_area">
         <!-- ##### Single Widget ##### -->
+        <h6 class="widget-title mb-30">
+          
+          Holder  :   <%=   locals.userfind.username %>
+          <br>
+          Bill   :    <%=   locals.userfind.bill %>
+        </h6>
         <div class="widget catagory mb-50">
           <!-- Widget Title -->
+
           <h6 class="widget-title mb-30">Catagories</h6>
+
 
           <!--  Catagories  -->
           <div class="catagories-menu">
@@ -1569,6 +1577,7 @@
       </div>
 
       <div class="amado_product_area section-padding-100">
+        <h1>products:</h1>
         <div class="container-fluid">
           <% locals.item.forEach (element=>{%>
             <div class="row">
@@ -1644,9 +1653,13 @@
                           ><img src="img/core-img/cart.png" alt=""
                           /></a>
                       </div>
-                     
-                    
-                      </div>
+                      <% if (locals.candlt) { %>
+                        <div class="cart">
+
+                            <a href="/dlt/<%= element.id %>">dlt</a>
+                          </div>
+                      <% } %>
+                    </div>
                   </div>
                   </div>
               </div>

@@ -16,6 +16,7 @@ const register = async (req, res) => {
 
     // Create a new user
     // const wishlistide=  tempwishlist._id;
+
     const newUser = new User({
       username,
       password,
@@ -23,6 +24,7 @@ const register = async (req, res) => {
       emptyproduct
 
     });
+     newUser.bill=0;
    // console.log(newUser)
     // const tempwishlist = new wishlist({
     //   user: newUser._id,
@@ -41,7 +43,7 @@ const register = async (req, res) => {
     // })
     // console.log(document.cookie);
     // res.send('User registered successfully');
-    res.redirect("/post");
+    res.redirect("/shop");
   } catch (error) {
     console.error(error);
     // Handle errors and send an appropriate response
@@ -75,7 +77,7 @@ const login = async (req, res) => {
       // })
       //  console.log( res.cookie);
       // res.send('Login successful');
-      res.redirect("/post")
+      res.redirect("/shop")
     } else {
       // Incorrect password
       res.status(401).send('Incorrect password');
