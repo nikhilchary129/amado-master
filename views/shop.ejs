@@ -1483,14 +1483,15 @@
           <a href="/"><img src="\logo\png\logo-no-background.png" alt="" /></a>
         </div>
         <!-- Amado Nav -->
-        <nav class="amado-nav">
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/shop">Product</a></li>
-            <li><a href="/cart">Cart</a></li>
-        
+     <nav class="amado-nav">
+          <ul id="navList">
+              <li class="active"><a href="/shop">Home</a></li>
+              <li><a href="/post">Sell</a></li>
+              <li><a href="/cart">Cart</a></li>
+              <li id="profileLink"><a href="/auth">Register</a></li>
+              <li id="logoutLink" style="display: none;"><a href="/logout">Logout</a></li>
           </ul>
-        </nav>
+      </nav>
         <!-- Button Group -->
 
         <!-- Cart Menu -->
@@ -1745,7 +1746,7 @@
       </div>
     </footer>
     <!-- ##### Footer Area End ##### -->
-
+    <script src="js/logout.js"></script>
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->

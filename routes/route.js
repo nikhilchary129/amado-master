@@ -3,6 +3,7 @@ const User = require("../models/userschema");
 const auth = require("../controllers/auth")
 const products = require("../models/productsSchema")
 const wish = require("../models/wishlist")
+const news= require("../models/newletter")
 const jwt = require("jsonwebtoken");
 const { ObjectId } = require("mongodb");
 //const product=require("../controllers/products");
@@ -257,6 +258,20 @@ route.get("/dlt/:productid", authenticateUser, async (req, res) => {
   // console.log(item) 
   //res.render("profile", { userfind, item })
   res.redirect("/myprofile")
+})
+route.post("/updates",(req,res)=>{
+  let { userid } = req.cookies
+  const userId = jwt.verify(userid, "keybro")
+  const newupdate= new news({
+    user: userId
+  })
+  newupdate.save();
+
+  res.redirect("/shop")
+})
+route.get("/logout",(req,res)=>{
+  res.clearCookie('userid');
+  res.redirect("/shop")
 })
 
 module.exports = route
