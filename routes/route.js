@@ -24,7 +24,7 @@ route.get("/dd", (req, res) => {
 })
 route.get("/shop/glass_work", async (req, res) => {
 
-  const item = await products.find({ category: "glass_work" })
+  const item = await products.find({ category: "glass-work" })
 
   res.render("shop", { item })
 })
