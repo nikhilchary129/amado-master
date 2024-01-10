@@ -276,10 +276,10 @@ route.get("/dlt/:productid", authenticateUser, async (req, res) => {
   res.redirect("/myprofile")
 })
 route.post("/updates",(req,res)=>{
-  let { userid } = req.cookies
-  const userId = jwt.verify(userid, "keybro")
+   let { email } = req.params
+  // const userId = jwt.verify(userid, "keybro")
   const newupdate= new news({
-    user: userId
+    user: email
   })
   newupdate.save();
 
