@@ -11,10 +11,11 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Amado - Furniture Ecommerce Template | Cart</title>
+     <!-- Title  -->
+     <title>reclaim mart</title>
 
-    <!-- Favicon  -->
-    <link rel="icon" href="img/core-img/favicon.ico" />
+     <!-- Favicon  -->
+     <link rel="icon" href="img/logo/logo-no-background.svg" />
 
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="css/core-style.css" />
@@ -121,7 +122,7 @@
                       <th></th>
                       <th>Name</th>
                       <th>Price</th>
-                      <th>Quantity</th>
+                      <th>delete</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -137,6 +138,9 @@
                       </td>
                       <td class="price">
                         <span><%= element.amount %></span>
+                      </td>
+                      <td class="delete" >
+                        <span><a href="/cartdel/<%= element.id %>">delete</a></span>
                       </td>
                     </tr>
                     <%}) %>

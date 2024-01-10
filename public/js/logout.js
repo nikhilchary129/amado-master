@@ -16,7 +16,7 @@ window.onload = function() {
         if (userLoggedIn) {
             profileLink.style.display = 'block';
             logoutLink.style.display = 'block';
-            profileLink.innerHTML = '<a href="/profile">View Profile</a>';
+            profileLink.innerHTML = '<a href="/myprofile">View Profile</a>';
         } else {
             profileLink.style.display = 'block';
             logoutLink.style.display = 'none';

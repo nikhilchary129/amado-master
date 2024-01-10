@@ -135,7 +135,23 @@ route.post('/productinfo', async (req, res) => {
 
 
 })
-
+route.get("/cartdel/:item",async (req, res)=>{
+  let { userid } = req.cookies
+  const ide = jwt.verify(userid, "keybro");
+  const userinfo = await User.findById(ide);
+  const item = req.params.item
+  for(let i=0;i<userinfo.wish.length ;i++){
+    if(userinfo.wish[i].id==item){
+      let temp=userinfo.wish[i];
+      userinfo.wish[i]=userinfo.wish[userinfo.wish.length-1];
+      userinfo.wish[userinfo.wish.length-1]=temp;
+      break;
+    }
+  }
+  userinfo.wish.pop();
+  userinfo.save();
+  res.redirect("/cart");
+})
 route.get("/cart/:item", authenticateUser, async (req, res) => {
   //  const catgory=req.params.catgory
   const item = req.params.item
@@ -211,7 +227,7 @@ route.get("/shop/:productid", async (req, res) => {
   products.findById(productid)
     .then((product) => {
       // console.log(product)
-      res.render('product-details', { product })
+      res.send({ product })
     })
     .catch((err) => {
       console.log(err, 'product view')
