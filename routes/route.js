@@ -22,6 +22,12 @@ route.get("/shop", async (req, res) => {
 route.get("/dd", (req, res) => {
   res.render("product-details")
 })
+route.get("/shop/furniture", async (req, res) => {
+
+  const item = await products.find({ category: "furniture" })
+
+  res.render("shop", { item })
+})
 route.get("/shop/glass_work", async (req, res) => {
 
   const item = await products.find({ category: "glass-work" })
@@ -109,7 +115,7 @@ route.post('/productinfo', async (req, res) => {
         mail, number
       }
     });
-    console.log(newProduct);
+   // console.log(newProduct);
 
     // Save the product to the database
     await newProduct.save();
@@ -283,7 +289,7 @@ route.post("/updates",(req,res)=>{
   })
   newupdate.save();
 
-  res.redirect("/shop")
+  res.render("cart copy.ejs")
 })
 route.get("/logout",(req,res)=>{
   res.clearCookie('userid');
